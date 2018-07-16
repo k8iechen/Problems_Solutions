@@ -1,4 +1,5 @@
 #Simon and Marcy via DMOJ.ca - Knapsack
+#https://dmoj.ca/problem/valday15p2
 
 CM = raw_input().strip().split()
 C = int(CM[0])
