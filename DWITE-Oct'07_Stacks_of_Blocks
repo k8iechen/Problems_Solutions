@@ -1,0 +1,35 @@
+#Stacks of Blocks
+#https://wcipeg.com/problem/dwiteoct07p4
+
+def block(n, x):
+	b = n
+	if b < 0:
+		b = n
+		
+	if b == n:
+		c = 0
+	if b != 0:
+		for i in xrange(len(x)):
+			b = b-x[i]
+			c += 1
+			if b == 0:
+				bb.append(c)
+		if len(x) == 0:
+			if len(bb) == 0:
+				return 0
+			else:
+				bb.sort()
+				return bb[0]
+		else:
+			x.pop(0)
+			return block(n, x)
+
+b = int(raw_input())
+r = int(raw_input())
+aa = []
+for x in xrange(r):
+	a = int(raw_input())
+	aa.append(a)
+aa.sort()
+bb = []
+print block(b, aa)
