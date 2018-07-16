@@ -1,4 +1,4 @@
-#Simon and Marcy via DMOJ.ca - Knapsac
+#Simon and Marcy via DMOJ.ca - Knapsack
 
 CM = raw_input().strip().split()
 C = int(CM[0])
