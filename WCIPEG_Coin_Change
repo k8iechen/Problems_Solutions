@@ -1,0 +1,24 @@
+#Coin Change - DP
+#https://wcipeg.com/problem/cchange
+
+def Change(coins,value,minc,used):
+   for cents in range(value+1):
+      coinCount = cents
+      newCoin = 1
+      for j in [c for c in coins if c <= cents]:
+            if minc[cents-j] + 1 < coinCount:
+               coinCount = minc[cents-j]+1
+               newCoin = j
+      minc[cents] = coinCount
+      used[cents] = newCoin
+   return minc[value]
+   
+a = int(raw_input())
+r = int(raw_input())
+coins = []
+for x in xrange(r):
+  b = int(raw_input())
+  coins.append(b)
+minc = [0]*(a+1)
+used = [0]*(a+1)
+print Change(coins,a,minc,used)
