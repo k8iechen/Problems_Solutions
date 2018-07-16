@@ -1,0 +1,25 @@
+#Simon and Marcy via DMOJ.ca - Knapsac
+
+CM = raw_input().strip().split()
+C = int(CM[0])
+M = int(CM[1])
+dic = [[0,0]]
+array = [[0]*(M+1)]
+for i in xrange(C):
+	a = raw_input().strip().split()
+	b = []
+	b.append(int(a[0]))
+	b.append(int(a[1]))
+	dic.append(b)
+	array.append([0]*(M+1))
+#print dic, array, C, M
+for i in xrange(1, C+1):
+	for j in xrange(1, M+1):
+		if dic[i][1] <= j:
+			value = dic[i][0] + array[i-1][(j-dic[i][1])]
+			array[i][j] = value
+		else:
+			array[i][j] = array[i-1][j]
+		if array[i][j] < array[i-1][j]:
+			array[i][j] = array[i-1][j]
+print array[-1][-1]
