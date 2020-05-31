@@ -1,0 +1,47 @@
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if len(height) <= 1:
+            return 0
+        mapping = {}
+        water = []
+        
+        # Mapping highest values on either side
+        maxL = 0
+        for i in xrange(len(height)):
+            mapping[i] = [maxL, 0]
+            if height[i] >= height[maxL]:
+                maxL = i
+        maxR = len(height)-1
+        for i in xrange(len(height)):
+            mapping[len(height)-i-1][1] += maxR
+            if height[-i-1] >= height[maxR]:
+                maxR = len(height)-i-1
+                
+        # Recursive L & R search
+        def findRightArea(mapping, maxV, height, area):
+            if maxV != len(height) - 1:
+                # print "R" + str(area)
+                area += height[mapping[maxV][1]] * (mapping[maxV][1] - 1 - maxV)
+                area -= sum(height[maxV+1:mapping[maxV][1]])
+                # print "2. " + str(area)
+                findRightArea(mapping, mapping[maxV][1], height, area)
+            else:
+                water.append(area)
+        def findLeftArea(mapping, maxV, height, area):
+            if maxV != 0:
+                # print "L" + str(area)
+                area += height[mapping[maxV][0]] * (maxV - mapping[maxV][0] - 1)
+                area -= sum(height[mapping[maxV][0]+1:maxV])
+                # print "1. " + str(area)
+                findLeftArea(mapping, mapping[maxV][0], height, area)
+            else:
+                water.append(area)
+                
+        findLeftArea(mapping, maxL, height, 0)
+        findRightArea(mapping, maxL, height, 0) 
+        
+        return sum(water)
