@@ -1,0 +1,50 @@
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if len(grid) == 0:
+            return 0
+        count = 0
+        height = len(grid)
+        width = len(grid[0])
+        for i in range(height):
+            for j in range(width):
+                if grid[i][j] == '1':
+                    self.dfs(grid, i, j, height, width)
+                    count += 1
+                
+        return count
+    
+#dfs
+    def dfs(self, grid, i, j, height, width):
+        grid[i][j] = '0'
+
+        if i+1 < height:
+            if grid[i+1][j] == '1':
+                self.dfs(grid, i+1, j, height, width)
+        if i-1 >= 0:
+            if grid[i-1][j] == '1':
+                self.dfs(grid, i-1, j, height, width)
+        if j+1 < width:
+            if grid[i][j+1] == '1':
+                self.dfs(grid, i, j+1, height, width)
+        if j-1 >= 0:
+            if grid[i][j-1] == '1':
+                self.dfs(grid, i, j-1, height, width)
+                
+#     #bfs
+#     def bfs(self, grid, i , j, heigh, width):
+#         queue = dequeue()
+#         queue.append((i, j))
+#         direcitons = [(1,0), (0,1), (-1, 0), (0, -1)]
+        
+#         whiel queue:
+#             current = queue.popleft()
+#             for dir in directions:
+#                 next_i = current[0] + dir[0]
+#                 next_j = current[1] + dir[1]
+#                 if next_i in range(0, height) and next_j in range(0, width):
+#                     queue.append((next_i, next_j))
+#                     grid[i][j] = '0'
