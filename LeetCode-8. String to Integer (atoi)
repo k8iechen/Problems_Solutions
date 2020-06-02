@@ -1,0 +1,48 @@
+class Solution:    
+    def myAtoi(self, str: str) -> int:
+        l = []
+        
+        #purge whitespace
+        string = list(str.strip().split(' '))[0]
+        print(string)
+        if len(string) < 1:
+            return 0
+        
+        minus = False
+        positive = False
+        
+        # if leading char is a sign
+        if string[0] == '-' or string[0] == '+':
+            if string[0] == '-':
+                minus = True
+            if string[0] == '+':
+                positive = True
+            # if there's only the sign and no nums following
+            if len(string) > 1:
+                string = string[1:]
+            else:
+                return 0
+            
+        # if first char (after sign) ain't num
+        if not string[0].isdigit():
+            return 0
+        
+        # extract num
+        for s in string:
+            if s.isdigit():
+                l.append(s)
+            else:
+                break
+        # print(l)
+        ans = int(''.join(l))
+        
+        # resolve max/min 32-bit issue
+        if ans >= 2147483648:
+            ans = 2147483648
+            if not minus:
+                ans -=1
+        # print(ans)
+        if minus:
+            ans = -ans
+            
+        return ans
